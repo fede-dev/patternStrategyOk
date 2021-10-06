@@ -4,10 +4,9 @@ const httpManager = function(){
         this.strategie = strategie
     }
     this.get = async(option)=> await this.strategie.get(option)
-    this.post = ()=> this.strategie.post()
-    this.put = ()=> this.strategie.put()
-    this.delete = ()=> this.strategie.delete()
-    this.returnJson = (obj)=> this.strategie.returnJson(obj)
+    this.post = async(option)=> await this.strategie.post(option)
+    this.put = async(option)=> await this.strategie.put(option)
+    this.delete = async(option)=> await this.strategie.delete(option)
     this.returnText = (obj)=> this.strategie.returnText(obj)
 }
 

@@ -1,5 +1,5 @@
 const fetchNode = require('node-fetch')
-const axios = require('axios')
+
 
 const objFetch = {
     get: async(options) => {
@@ -14,25 +14,51 @@ const objFetch = {
             console.log("Ha ocurrido un error " + error)
         }
     },
-    post:()=>{console.log("post")},
-    put:()=>{console.log("put")},
-    delete:()=>{console.log("delete")},
-    returnJson:async(obj)=>{
-      return await obj.json()
-    },
     returnText:async(obj)=>{
         return await obj.text()
-      }
+    },
+
+    post: async(options) =>{
+        try {  
+            const objProps = {
+                method: "post",
+                body: options.req.body,
+                header :options.header
+            }
+            const result = await fetchNode(options.url, objProps)
+            return result
+        }catch(error){
+            console.log(" Ocurrio un error " + error.message)
+        }
+    },
+
+    put: async(options)=>{
+        try {  
+            const objProps = {
+                method: "put",
+                body: options.req.body,
+                id: options.req.params.id,
+                header :options.header
+            }
+            const result = await fetchNode(options.url, objProps)
+            return result
+        }catch(error){
+            console.log(" Ocurrio un error " + error.message)
+        }
+    },
+    delete:async(options)=>{
+        try {  
+            const objProps = {
+                method: "delete",
+                id: options.req.params.id,
+                header :options.header
+            }
+            const result = await fetchNode(options.url, objProps)
+            return result
+        }catch(error){
+            console.log(" Ocurrio un error " + error.message)
+        }
+    }
 }
 
-
-const objAxios = {
-    get:async() => {console.log("get") },
-    post:()=>{console.log("post")},
-    put:()=>{console.log("put")},
-    delete:()=>{console.log("delete")}
-}
-
-
-
-module.exports = {objFetch,  objAxios}
+module.exports = objFetch
